@@ -37,7 +37,7 @@ async def analyze_id(image_bytes):
             - Last Name
             - Gender        
             - Date of Birth (format: YYYY-MM-DD)
-            - Age (current year is 2024)
+            - Age (current year is 2025)
             - Address (must be full, **if not present, use a random address from the place of birth(with postcode)**)
             - Country code (must be two letters) for the issuing country of the document
             - ID Type (type of identification document)
