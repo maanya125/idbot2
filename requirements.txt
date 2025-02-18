@@ -1,5 +1,5 @@
 discord
-google-genai==0.4.0
+google-genai
 Pillow==10.2.0
 requests==2.31.0
 python-dotenv==1.0.1
