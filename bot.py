@@ -14,7 +14,7 @@ DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # Google GenAI Client
-client = genai.Client(api_key=GEMINI_API_KEY)
+client = genai.Client(api_key=f"{GEMINI_API_KEY}")
 
 # Discord Bot Setup
 intents = discord.Intents.default()
