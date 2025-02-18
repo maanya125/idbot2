@@ -10,8 +10,8 @@ import json
 import os
 import requests
 # Load environment variables
-discord_token = os.getenv("DISCORD_TOKEN")
-gemini_api_key = os.getenv("GEMINI_API_KEY")
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # Google GenAI Client
 client = genai.Client(api_key=GEMINI_API_KEY)
