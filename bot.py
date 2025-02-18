@@ -1,3 +1,5 @@
+import threading
+import server
 import discord
 from discord.ext import commands
 from google import genai
@@ -85,5 +87,7 @@ async def id_info(ctx):
             await ctx.send("⚠️ No image found in the replied message.")
     else:
         await ctx.send("⚠️ Please reply to a message containing an image using `!idinfo`.")
+
+threading.Thread(target=server.app.run, kwargs={"host": "0.0.0.0", "port": 10000}).start()
 
 bot.run(DISCORD_TOKEN)
