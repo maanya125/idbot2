@@ -116,7 +116,7 @@ async def id_info(ctx):
 async def duckmail(ctx):
     """Fetches a DuckDuckGo email address and sends it in the chat."""
     email_address = await get_duckduckgo_email()
-    await ctx.send(f"Your DuckDuckGo Email: {email_address}")
+    message = await ctx.send(f"Your DuckDuckGo Email: {email_address}")
     await message.add_reaction("✅")  # Mark as used
     await message.add_reaction("❌")
     
