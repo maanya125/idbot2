@@ -117,6 +117,9 @@ async def duckmail(ctx):
     """Fetches a DuckDuckGo email address and sends it in the chat."""
     email_address = await get_duckduckgo_email()
     await ctx.send(f"Your DuckDuckGo Email: {email_address}")
+    await message.add_reaction("✅")  # Mark as used
+    await message.add_reaction("❌")
+    
 threading.Thread(target=server.app.run, kwargs={"host": "0.0.0.0", "port": 10000}).start()
 
 bot.run(DISCORD_TOKEN)
