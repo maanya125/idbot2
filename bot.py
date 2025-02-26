@@ -9,6 +9,7 @@ import io
 import json
 import os
 import requests
+import aiohttp
 # Load environment variables
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
@@ -22,6 +23,29 @@ intents.messages = True
 intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
+
+
+async def get_duckduckgo_email():
+    url = "https://quack.duckduckgo.com/api/email/addresses"
+    headers = {
+        "Connection": "keep-alive",
+        "Accept": "*/*",
+        "User-Agent": "ddg_ios/7.157.0.5 (com.duckduckgo.mobile.ios; iOS 18.3.1)",
+        "Accept-Language": "en-US;q=1.0",
+        "Authorization": "Bearer 4i9bopnosj2dqqaqwb53zorrr0mwd7er5iruivs6mpevjejlnke8unozzemhdm",
+        "Accept-Encoding": "gzip;q=1.0, compress;q=0.5"
+    }
+
+    async with aiohttp.ClientSession() as session:
+        try:
+            async with session.post(url, headers=headers) as response:
+                response.raise_for_status()
+                data = await response.json()
+                address = data.get("address")
+                return f"{address}@duck.com" if address else "No address found"
+        except aiohttp.ClientError as e:
+            return f"Error: {e}"
+
 
 async def analyze_id(image_bytes):
     """Analyze ID from image using Google Gemini API."""
@@ -87,7 +111,12 @@ async def id_info(ctx):
             await ctx.send("⚠️ No image found in the replied message.")
     else:
         await ctx.send("⚠️ Please reply to a message containing an image using `!idinfo`.")
-
+        
+@bot.command()
+async def duckmail(ctx):
+    """Fetches a DuckDuckGo email address and sends it in the chat."""
+    email_address = await get_duckduckgo_email()
+    await ctx.send(f"Your DuckDuckGo Email: {email_address}")
 threading.Thread(target=server.app.run, kwargs={"host": "0.0.0.0", "port": 10000}).start()
 
 bot.run(DISCORD_TOKEN)
